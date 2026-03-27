@@ -1,0 +1,541 @@
+/* ============================================================
+   CURL.FYI — GLOBAL DESIGN SYSTEM
+   Warm vintage hardware aesthetic
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Londrina+Sketch&display=swap');
+
+/* ============================================================
+   CSS VARIABLES — DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Warm cream base palette */
+  --cream-50: #fefcf7;
+  --cream-100: #fdf8ee;
+  --cream-200: #f9f0d8;
+  --cream-300: #f2e3b8;
+  --cream-400: #e8d190;
+
+  /* Amber / burnt orange accent */
+  --amber-300: #ffb566;
+  --amber-400: #ff9a3d;
+  --amber-500: #FF7F11;
+  --amber-600: #cc6200;
+
+  /* Warm brown / hardware tones */
+  --brown-100: #e8dcc8;
+  --brown-200: #d4c4a8;
+  --brown-300: #b8a888;
+  --brown-400: #947f62;
+  --brown-500: #6e5c44;
+  --brown-600: #4a3c2a;
+  --brown-700: #2e2418;
+  --brown-800: #1a1510;
+
+  /* Functional */
+  --bg-primary: #81E0FF;
+  --bg-secondary: #ede4cf;
+  --bg-panel: #f0e8d5;
+  --bg-elevated: #faf5e8;
+
+  --text-primary: #2e2418;
+  --text-secondary: #6e5c44;
+  --text-muted: #947f62;
+  --text-inverse: #fefcf7;
+
+  --border-light: #ddd0b8;
+  --border-medium: #c4b090;
+  --border-strong: #947f62;
+
+  /* Typography */
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+
+  /* Skeuomorphic button system */
+  --btn-surface: #FF7F11;
+  --btn-surface-hover: #ff9a3d;
+  --btn-surface-pressed: #cc6200;
+  --btn-highlight: rgba(255, 255, 255, 0.7);
+  --btn-shadow-light: rgba(255, 255, 255, 0.5);
+  --btn-shadow-dark: rgba(46, 36, 24, 0.4);
+  --btn-shadow-darker: rgba(46, 36, 24, 0.6);
+
+  /* Amber button pressed state */
+  --btn-pressed-surface: #FF7F11;
+  --btn-pressed-surface-dark: #cc6200;
+  --btn-pressed-text: #fefcf7;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 80ms ease;
+  --transition-base: 150ms ease;
+  --transition-slow: 300ms ease;
+  --transition-curl: 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(46, 36, 24, 0.12);
+  --shadow-md: 0 4px 12px rgba(46, 36, 24, 0.15);
+  --shadow-lg: 0 8px 24px rgba(46, 36, 24, 0.18);
+  --shadow-xl: 0 16px 40px rgba(46, 36, 24, 0.22);
+
+  /* Layout */
+  --nav-height: 56px;
+  --footer-height: 88px;
+  --sidebar-width: 40%;
+  --iframe-width: 60%;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+
+  /* Subtle paper texture */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ============================================================
+   SKEUOMORPHIC BUTTON COMPONENT
+   The core design element across the entire app
+   ============================================================ */
+
+.sku-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-inverse);
+
+  background: var(--btn-surface);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  /* The physical 3D effect */
+  border: 1px solid var(--brown-300);
+  box-shadow:
+    /* Top highlight */
+    inset 0 1px 0 var(--btn-shadow-light),
+    /* Bottom shadow */
+    inset 0 -1px 0 rgba(46, 36, 24, 0.15),
+    /* Outer depth */
+    0 2px 0 var(--brown-400),
+    0 3px 6px rgba(46, 36, 24, 0.2),
+    0 1px 2px rgba(46, 36, 24, 0.15);
+
+  /* Physical button appearance */
+  transform: translateY(0px);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+
+  /* Subtle surface texture */
+  background-image: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.05) 100%
+  );
+}
+
+.sku-btn:hover {
+  background-color: var(--btn-surface-hover);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -1px 0 rgba(46, 36, 24, 0.12),
+    0 3px 0 var(--brown-400),
+    0 4px 8px rgba(46, 36, 24, 0.22),
+    0 1px 3px rgba(46, 36, 24, 0.15);
+}
+
+.sku-btn:active,
+.sku-btn.pressed {
+  background-color: var(--btn-pressed-surface);
+  color: var(--btn-pressed-text);
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 2px 4px rgba(46, 36, 24, 0.3),
+    inset 0 1px 0 rgba(0,0,0,0.2),
+    0 0px 0 var(--brown-400),
+    0 1px 2px rgba(46, 36, 24, 0.1);
+  background-image: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0) 50%,
+    rgba(255,255,255,0.05) 100%
+  );
+}
+
+/* Latching variant — stays pressed until clicked again */
+.sku-btn.latched {
+  background-color: var(--btn-pressed-surface);
+  background-image: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0) 40%,
+    rgba(255,255,255,0.05) 100%
+  );
+  color: var(--btn-pressed-text);
+  border-color: var(--amber-600);
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 2px 4px rgba(46, 36, 24, 0.3),
+    inset 0 1px 0 rgba(0,0,0,0.15),
+    0 0px 0 var(--brown-500),
+    0 1px 3px rgba(46, 36, 24, 0.15),
+    /* Amber glow */
+    0 0 8px rgba(201, 125, 16, 0.25);
+}
+
+.sku-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  pointer-events: none;
+}
+
+/* Size variants */
+.sku-btn-sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.sku-btn-md {
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.875rem;
+}
+
+.sku-btn-lg {
+  padding: var(--space-3) var(--space-6);
+  font-size: 1rem;
+}
+
+/* The main Curl button — hero size */
+.sku-btn-curl {
+  padding: var(--space-4) var(--space-12);
+  font-size: 1.25rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-lg);
+  min-width: 200px;
+
+  /* Stronger physical presence */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(46, 36, 24, 0.18),
+    0 4px 0 var(--brown-500),
+    0 5px 12px rgba(46, 36, 24, 0.25),
+    0 2px 4px rgba(46, 36, 24, 0.2),
+    /* Ambient amber backlight */
+    0 0 20px rgba(201, 125, 16, 0.15);
+}
+
+.sku-btn-curl:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -1px 0 rgba(46, 36, 24, 0.15),
+    0 5px 0 var(--brown-500),
+    0 6px 16px rgba(46, 36, 24, 0.28),
+    0 2px 4px rgba(46, 36, 24, 0.2),
+    0 0 28px rgba(201, 125, 16, 0.2);
+  transform: translateY(-2px);
+}
+
+.sku-btn-curl:active,
+.sku-btn-curl.pressing {
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 3px 6px rgba(46, 36, 24, 0.35),
+    inset 0 1px 0 rgba(0,0,0,0.2),
+    0 0px 0 var(--brown-500),
+    0 1px 4px rgba(46, 36, 24, 0.15),
+    0 0 12px rgba(201, 125, 16, 0.1);
+}
+
+.sku-btn-curl.cooldown {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-mono { font-family: var(--font-mono); }
+.font-serif { font-family: var(--font-serif); }
+.font-sans { font-family: var(--font-sans); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+/* URL / terminal display style */
+.url-display {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--amber-600);
+  background: #ECE9D5;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: color var(--transition-base);
+}
+
+.url-display:hover {
+  color: var(--amber-500);
+  text-decoration: underline;
+}
+
+.url-display::before {
+  content: '>';
+  opacity: 0.5;
+}
+
+/* ============================================================
+   SEPARATOR — physical ridge/groove between tiers
+   ============================================================ */
+
+.tier-separator {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(
+    180deg,
+    var(--border-medium) 0%,
+    var(--border-light) 30%,
+    rgba(255,255,255,0.4) 50%,
+    var(--border-light) 70%,
+    var(--border-medium) 100%
+  );
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  margin: var(--space-6) 0;
+}
+
+/* ============================================================
+   TAG DISPLAY — read-only taxonomy tags on main page
+   ============================================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid;
+}
+
+.tag-topic {
+  padding: 2px var(--space-3);
+  background: var(--amber-500);
+  color: var(--cream-50);
+  border-color: var(--amber-600);
+}
+
+.tag-subtopic {
+  padding: 2px var(--space-2);
+  background: var(--brown-400);
+  color: var(--cream-100);
+  border-color: var(--brown-500);
+}
+
+.tag-niche {
+  padding: 2px var(--space-2);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border-color: var(--border-medium);
+}
+
+.tag:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.tag.active {
+  box-shadow: 0 0 0 2px var(--amber-400);
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* ============================================================
+   SKELETON LOADING
+   ============================================================ */
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--cream-200) 25%,
+    var(--cream-100) 50%,
+    var(--cream-200) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brown-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-400);
+}
+
+/* ============================================================
+   FOCUS STYLES
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--amber-400);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   ACCORDION ANIMATION
+   For interests page tier reveals
+   ============================================================ */
+
+@keyframes accordionDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.accordion-enter {
+  animation: accordionDown 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================================
+   COOLDOWN RING ANIMATION
+   ============================================================ */
+
+@keyframes ringProgress {
+  from { stroke-dashoffset: 113; }
+  to { stroke-dashoffset: 0; }
+}
+
+.cooldown-ring {
+  animation: ringProgress 3s linear forwards;
+}
+
+/* ============================================================
+   PAGE TRANSITIONS
+   ============================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: fadeIn 300ms ease forwards;
+}

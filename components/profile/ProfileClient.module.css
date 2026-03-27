@@ -1,0 +1,381 @@
+.wrapper {
+  padding-bottom: var(--space-16);
+}
+
+/* ── Folder Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-6);
+}
+
+/* ── Square Folder Card ── */
+.folderCard {
+  aspect-ratio: 1 / 1;
+  background: #fefefa;
+  border: 1px solid #FFF298;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow:
+    0 16px 54px 0 rgba(26, 31, 29, 0.03),
+    0 5.1px 17px 0 rgba(26, 31, 29, 0.05),
+    0 1.9px 6.55px 0 rgba(26, 31, 29, 0.05),
+    0 0.63px 2.16px 0 rgba(26, 31, 29, 0.05);
+}
+
+.folderCard:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 60px 0 rgba(26, 31, 29, 0.06),
+    0 8px 24px 0 rgba(26, 31, 29, 0.08),
+    0 3px 10px 0 rgba(26, 31, 29, 0.06);
+}
+
+/* ── Thumbnail Preview (top area of card) ── */
+.thumbnailGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  padding: var(--space-2);
+  min-height: 0;
+}
+
+.thumbSlot {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--cream-200);
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.emptyPreview {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.folderEmoji {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+/* ── Folder Info (bottom section of card) ── */
+.folderInfo {
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-top: 1px solid #FFF298;
+}
+
+.folderName {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.siteCount {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── Add Folder Card ── */
+.addCard {
+  border-style: dashed;
+  border-color: var(--border-medium);
+  background: transparent;
+}
+
+.addCard:hover {
+  border-color: #FFF298;
+  background: rgba(255, 242, 152, 0.1);
+}
+
+.addIconWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addIcon {
+  font-size: 2.5rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ── New Folder Form (inside card) ── */
+.newFolderForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+.newFolderInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  background: white;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--transition-base);
+}
+
+.newFolderInput:focus {
+  border-color: #FFF298;
+}
+
+.newFolderActions {
+  display: flex;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.createBtn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: #FFF298;
+  color: #1a1a1a;
+  border: 1px solid #FFF298;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background var(--transition-base);
+}
+
+.createBtn:hover {
+  background: #ffe94a;
+}
+
+.createBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.cancelBtn:hover {
+  color: var(--text-secondary);
+}
+
+/* ── Back Link ── */
+.backLink {
+  display: inline-block;
+  margin-bottom: var(--space-6);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+}
+
+.backLink:hover {
+  opacity: 0.6;
+}
+
+/* ── Modal Overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(26, 31, 29, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.modal {
+  background: #81E0FF;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    0 24px 80px 0 rgba(26, 31, 29, 0.12),
+    0 8px 24px 0 rgba(26, 31, 29, 0.08);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid rgba(26, 31, 29, 0.1);
+}
+
+.modalTitle {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.modalClose {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: rgba(26, 31, 29, 0.08);
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background var(--transition-base);
+}
+
+.modalClose:hover {
+  background: rgba(26, 31, 29, 0.15);
+}
+
+.modalBody {
+  padding: var(--space-5) var(--space-6);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modalEmpty {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-8) 0;
+}
+
+/* ── Site List inside Modal ── */
+.siteList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.siteCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  background: #fefefa;
+  border: 1px solid #FFF298;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow:
+    0 16px 54px 0 rgba(26, 31, 29, 0.03),
+    0 5.1px 17px 0 rgba(26, 31, 29, 0.05),
+    0 1.9px 6.55px 0 rgba(26, 31, 29, 0.05),
+    0 0.63px 2.16px 0 rgba(26, 31, 29, 0.05);
+}
+
+.siteCard:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 20px 60px 0 rgba(26, 31, 29, 0.06),
+    0 8px 24px 0 rgba(26, 31, 29, 0.08),
+    0 3px 10px 0 rgba(26, 31, 29, 0.06);
+}
+
+.siteThumb {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.siteThumbEmpty {
+  width: 64px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 31, 29, 0.05);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.siteInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.siteTitle {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.siteUrl {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

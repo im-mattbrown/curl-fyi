@@ -1,0 +1,93 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  background: #FFFEFA;
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 1px 8px rgba(46, 36, 24, 0.06);
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  text-decoration: none;
+}
+
+.logoText {
+  font-family: 'Londrina Sketch', cursive;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--brown-700);
+  letter-spacing: -0.02em;
+}
+
+.logoDomain {
+  font-family: 'Londrina Sketch', cursive;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--amber-500);
+  letter-spacing: -0.02em;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.navLink {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-base);
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+}
+
+.upgradeBtn {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--amber-600);
+  background: rgba(201, 125, 16, 0.08);
+  border: 1px solid rgba(201, 125, 16, 0.2);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3);
+  transition: all var(--transition-base);
+}
+
+.upgradeBtn:hover {
+  background: rgba(201, 125, 16, 0.14);
+  color: var(--amber-500);
+}
+
+.shaperBadge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--amber-600);
+  background: rgba(201, 125, 16, 0.08);
+  border: 1px solid rgba(201, 125, 16, 0.2);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3);
+}
+
+.signOut {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color var(--transition-base);
+}
+
+.signOut:hover {
+  color: var(--text-secondary);
+}

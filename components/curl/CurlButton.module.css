@@ -1,0 +1,41 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring {
+  position: absolute;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  top: -8px;
+  left: -8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ringTrack {
+  stroke: var(--border-light);
+}
+
+.ringProgress {
+  stroke: var(--amber-400);
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.countdown {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 1.5ch;
+  text-align: center;
+}

@@ -275,56 +275,59 @@ export default function SiteMetadata({
         )}
       </div>
 
-      {/* Delete broken link */}
-      <button
-        className={styles.deleteBtn}
-        onClick={() => {
-          if (confirm('Delete this site from the database?')) {
-            onDelete()
-          }
-        }}
-      >
-        Delete broken link
-      </button>
-
-      {/* Update URL */}
-      {!showUrlEdit ? (
-        <button
-          className={styles.deleteBtn}
-          onClick={() => {
-            setEditedUrl(site.url)
-            setShowUrlEdit(true)
-          }}
-        >
-          Update URL
-        </button>
-      ) : (
-        <div className={styles.urlEditRow}>
-          <input
-            type="text"
-            value={editedUrl}
-            onChange={e => setEditedUrl(e.target.value)}
-            className={styles.urlEditInput}
-            autoFocus
-            onKeyDown={e => {
-              if (e.key === 'Enter') handleUpdateUrl()
-              if (e.key === 'Escape') setShowUrlEdit(false)
+      {/* Admin tools — only visible to admin */}
+      {userId === process.env.NEXT_PUBLIC_ADMIN_USER_ID && (
+        <>
+          <button
+            className={styles.deleteBtn}
+            onClick={() => {
+              if (confirm('Delete this site from the database?')) {
+                onDelete()
+              }
             }}
-          />
-          <button
-            className={styles.newFolderBtn}
-            onClick={handleUpdateUrl}
-            disabled={!editedUrl.trim() || editedUrl === site.url || updatingUrl}
           >
-            {updatingUrl ? '...' : 'Save'}
+            Delete broken link
           </button>
-          <button
-            className={styles.cancelUrlBtn}
-            onClick={() => setShowUrlEdit(false)}
-          >
-            ✕
-          </button>
-        </div>
+
+          {!showUrlEdit ? (
+            <button
+              className={styles.deleteBtn}
+              onClick={() => {
+                setEditedUrl(site.url)
+                setShowUrlEdit(true)
+              }}
+            >
+              Update URL
+            </button>
+          ) : (
+            <div className={styles.urlEditRow}>
+              <input
+                type="text"
+                value={editedUrl}
+                onChange={e => setEditedUrl(e.target.value)}
+                className={styles.urlEditInput}
+                autoFocus
+                onKeyDown={e => {
+                  if (e.key === 'Enter') handleUpdateUrl()
+                  if (e.key === 'Escape') setShowUrlEdit(false)
+                }}
+              />
+              <button
+                className={styles.newFolderBtn}
+                onClick={handleUpdateUrl}
+                disabled={!editedUrl.trim() || editedUrl === site.url || updatingUrl}
+              >
+                {updatingUrl ? '...' : 'Save'}
+              </button>
+              <button
+                className={styles.cancelUrlBtn}
+                onClick={() => setShowUrlEdit(false)}
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </>
       )}
 
     </div>

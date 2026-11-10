@@ -137,3 +137,29 @@
     padding: 0 var(--space-4);
   }
 }
+
+/* Small phones: hide Vibe Curl, full-width Curl button only */
+@media (max-width: 640px) {
+  .vibeWrap {
+    display: none;
+  }
+
+  .curlWrap {
+    flex: 1;
+  }
+
+  .curlWrap > div {
+    display: flex;
+    width: 100%;
+  }
+
+  .curlWrap :global(.sku-btn-curl) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Circular cooldown ring doesn't fit a wide button; countdown number still shows */
+  .curlWrap svg {
+    display: none;
+  }
+}

@@ -246,11 +246,13 @@ export default function CurlPage({ user, profile, initialSite }) {
 
       {/* ── Footer: Vibe Curl + Curl button ── */}
       <footer className={styles.footer}>
-        <VibeCurl
-          isShaper={isShaper}
-          onVibeCurl={(vibe) => handleCurl(vibe)}
-          cooldown={cooldown}
-        />
+        <div className={styles.vibeWrap}>
+          <VibeCurl
+            isShaper={isShaper}
+            onVibeCurl={(vibe) => handleCurl(vibe)}
+            cooldown={cooldown}
+          />
+        </div>
         <div className={styles.curlWrap} id="curl-button">
           <CurlButton
             onCurl={() => handleCurl()}

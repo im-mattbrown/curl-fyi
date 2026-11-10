@@ -91,3 +91,128 @@
 .signOut:hover {
   color: var(--text-secondary);
 }
+
+/* ── Mobile hamburger menu ── */
+
+.mobileMenu {
+  display: none;
+  position: relative;
+}
+
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: calc(-1 * var(--space-2));
+  border-radius: var(--radius-md);
+  color: var(--brown-600);
+  cursor: pointer;
+  background: none;
+  transition: color var(--transition-base);
+}
+
+.hamburger:hover,
+.hamburgerOpen {
+  color: var(--brown-700);
+}
+
+.hamburger path {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+  transform-box: view-box;
+  transform-origin: 13px 10px;
+  transition: transform var(--transition-slow), opacity var(--transition-base);
+}
+
+/* Open state: top & bottom waves twist into an X, middle fades out */
+.hamburgerOpen .waveTop {
+  transform: translateY(6px) rotate(45deg) scaleX(0.9);
+}
+
+.hamburgerOpen .waveMid {
+  opacity: 0;
+}
+
+.hamburgerOpen .waveBot {
+  transform: translateY(-6px) rotate(-45deg) scaleX(0.9);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: calc(-1 * var(--space-2));
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2);
+  background: #FFFEFA;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: dropdownIn 160ms ease-out;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-3);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.dropdownItem:hover {
+  background: rgba(46, 36, 24, 0.05);
+  color: var(--text-primary);
+}
+
+.dropdownUpgrade,
+.dropdownBadge {
+  margin-bottom: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--amber-600);
+  background: rgba(201, 125, 16, 0.08);
+  border: 1px solid rgba(201, 125, 16, 0.2);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.dropdownDivider {
+  height: 1px;
+  margin: var(--space-1) var(--space-2);
+  background: var(--border-light);
+}
+
+.dropdownSignOut {
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 var(--space-4);
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
